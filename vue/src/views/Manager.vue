@@ -51,7 +51,8 @@
             </template>
             <el-menu-item index="/admin">管理员信息</el-menu-item>
             <el-menu-item index="/student">学生信息</el-menu-item>
-            <el-menu-item index="/building">宿舍信息</el-menu-item>
+            <el-menu-item index="/building">宿舍楼信息</el-menu-item>
+            <el-menu-item index="/dormitory">宿舍信息</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
