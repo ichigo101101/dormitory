@@ -48,6 +48,7 @@
             <el-menu-item index="/stay">住宿信息</el-menu-item>
             <el-menu-item index="/exchanges">换寝记录</el-menu-item>
             <el-menu-item index="/fix">寝室报修</el-menu-item>
+            <el-menu-item index="/visit">来访登记</el-menu-item>
           </el-submenu>
 
           <el-submenu index="user">
