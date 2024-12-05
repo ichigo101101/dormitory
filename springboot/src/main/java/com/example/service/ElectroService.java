@@ -1,14 +1,20 @@
 package com.example.service;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.example.common.enums.RoleEnum;
+import com.example.entity.Account;
 import com.example.entity.Electro;
+import com.example.entity.Stay;
 import com.example.exception.CustomException;
 import com.example.mapper.ElectroMapper;
+import com.example.mapper.StayMapper;
+import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +22,8 @@ public class ElectroService {
 
     @Resource
     private ElectroMapper electroMapper;
+    @Resource
+    private StayMapper stayMapper;
 
     /**
      * 新增
@@ -69,6 +77,16 @@ public class ElectroService {
      * 分页查询
      */
     public PageInfo<Electro> selectPage(Electro electro, Integer pageNum, Integer pageSize) {
+        Account currentUser = TokenUtils.getCurrentUser();
+        if(RoleEnum.STUDENT.name().equals(currentUser.getRole())){
+           Stay stay = stayMapper.selectByStudentId(currentUser.getId());
+           if(ObjectUtil.isEmpty(stay)) {
+               PageHelper.startPage(pageNum,pageSize);
+               return PageInfo.of(new ArrayList<>());
+           }else {
+               electro.setDormitoryId(stay.getDormitoryId());
+            }
+        }
         PageHelper.startPage(pageNum, pageSize);
         List<Electro> list = electroMapper.selectAll(electro);
         return PageInfo.of(list);

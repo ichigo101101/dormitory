@@ -1,7 +1,10 @@
 package com.example.service;
 
+import com.example.common.enums.RoleEnum;
+import com.example.entity.Account;
 import com.example.entity.Exchanges;
 import com.example.mapper.ExchangesMapper;
+import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,11 @@ public class ExchangesService {
      * 分页查询
      */
     public PageInfo<Exchanges> selectPage(Exchanges exchanges, Integer pageNum, Integer pageSize) {
+        Account currentUser = TokenUtils.getCurrentUser();
+        if(RoleEnum.STUDENT.name().equals(currentUser.getRole())){
+            exchanges.setStudenta(currentUser.getName());
+        }
+
         PageHelper.startPage(pageNum, pageSize);
         List<Exchanges> list = exchangesMapper.selectAll(exchanges);
         return PageInfo.of(list);

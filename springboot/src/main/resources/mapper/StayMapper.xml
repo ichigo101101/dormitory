@@ -16,6 +16,7 @@
         left join building on stay.building_id = building.id
         <where>
             <if test="id != null"> and id= #{id}</if>
+            <if test="studentId != null"> and stay.student_id  = #{studentId}</if>
             <if test="studentName != null"> and student.name = #{studentName}</if>
             <if test="dormitoryName != null"> and dormitory.code = #{dormitoryName}</if>
         </where>

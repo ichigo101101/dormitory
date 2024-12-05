@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="search">
+        <div class="search" v-if="user.role === 'ADMIN'">
             <el-input placeholder="请输入学生姓名" style="width: 200px" v-model="studentName"></el-input>
             <el-input placeholder="请输入寝室号" style="width: 200px; margin-left: 5px" v-model="dormitoryName"></el-input>
             <el-button type="info" plain style="margin-left: 10px" @click="load(1)">查询</el-button>
             <el-button type="warning" plain style="margin-left: 10px" @click="reset">重置</el-button>
         </div>
 
-        <div class="operation">
+        <div class="operation" v-if="user.role === 'ADMIN'">
             <el-button type="primary" plain @click="handleAdd">新增</el-button>
             <el-button type="danger" plain @click="delBatch">批量删除</el-button>
         </div>
@@ -21,7 +21,7 @@
                 <el-table-column prop="buildingName" label="宿舍楼"></el-table-column>
                 <el-table-column prop="bed" label="床位号"></el-table-column>
 
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" v-if="user.role === 'ADMIN'">
                     <template v-slot="scope">
                         <div style="display: flex; justify-content: flex-start; gap: 5px; width: auto;">
                             <el-button plain type="primary" @click="handleEdit(scope.row)" size="mini">更换宿舍/床位</el-button>

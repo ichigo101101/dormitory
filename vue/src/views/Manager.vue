@@ -42,17 +42,17 @@
             <template slot="title">
               <i class="el-icon-menu"></i><span>信息管理</span>
             </template>
-            <el-menu-item index="/notice">公告信息</el-menu-item>
-            <el-menu-item index="/building">宿舍楼信息</el-menu-item>
-            <el-menu-item index="/dormitory">宿舍信息</el-menu-item>
+            <el-menu-item index="/notice" v-if="user.role === 'ADMIN'">公告信息</el-menu-item>
+            <el-menu-item index="/building" v-if="user.role === 'ADMIN'">宿舍楼信息</el-menu-item>
+            <el-menu-item index="/dormitory" v-if="user.role === 'ADMIN'">宿舍信息</el-menu-item>
             <el-menu-item index="/stay">住宿信息</el-menu-item>
             <el-menu-item index="/exchanges">换寝记录</el-menu-item>
             <el-menu-item index="/fix">寝室报修</el-menu-item>
-            <el-menu-item index="/visit">来访登记</el-menu-item>
+            <el-menu-item index="/visit" v-if="user.role === 'ADMIN'">来访登记</el-menu-item>
             <el-menu-item index="/electro">电费缴纳</el-menu-item>
           </el-submenu>
 
-          <el-submenu index="user">
+          <el-submenu index="user" v-if="user.role === 'ADMIN'">
             <template slot="title">
               <i class="el-icon-menu"></i><span>用户管理</span>
             </template>

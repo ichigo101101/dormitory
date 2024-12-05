@@ -23,7 +23,7 @@
       </div>
 
     </div>
-      <div style="display: flex">
+      <div style="display: flex" v-if="user.role === 'ADMIN'">
           <div style="width: 50%; height: 400px" id="pie1" class="card"></div>
           <div style="width: 50%; height: 400px" id="pie2" class="card"></div>
       </div>
@@ -107,8 +107,11 @@ export default {
     this.$request.get('/notice/selectAll').then(res => {
       this.notices = res.data || []
     })
-        this.loadElectro()
-        this.loadStay()
+      if(this.user.role === 'ADMIN') {
+          this.loadElectro()
+          this.loadStay()
+      }
+
 
   },
     methods: {
